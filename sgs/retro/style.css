@@ -11,21 +11,18 @@ window,
     background: transparent;
 }
 
-/* cały pasek */
 .bar {
     background: #b8b8b8;
     border-top: 1px solid #eeeeee;
     border-bottom: 1px solid #222222;
 }
 
-/* layout */
 .bar-left,
 .bar-center,
 .bar-right {
     background: transparent;
 }
 
-/* klasyczny moduł */
 .module,
 .workspace-module,
 .status-module {
@@ -39,7 +36,6 @@ window,
     margin: 2px 2px;
 }
 
-/* efekt wciśnięcia */
 .module:active,
 .workspace-button:active,
 .launcher:active,
@@ -50,7 +46,6 @@ window,
     border-bottom: 1px solid #f4f4f4;
 }
 
-/* launcher */
 .launcher {
     background: #c0c0c0;
     border-top: 1px solid #f4f4f4;
@@ -69,7 +64,6 @@ window,
     background: #d0d0d0;
 }
 
-/* workspaces */
 .workspaces {
     background: transparent;
     margin: 0;
@@ -106,7 +100,6 @@ window,
     font-weight: 900;
 }
 
-/* center title / clock */
 .clock {
     background: #c0c0c0;
     border-top: 1px solid #555555;
@@ -121,7 +114,6 @@ window,
     min-width: 68px;
 }
 
-/* status */
 .volume,
 .battery,
 .cpu,
@@ -152,7 +144,6 @@ window,
     color: #111111;
 }
 
-/* power/shutdown */
 .power {
     background: #c0c0c0;
     border-top: 1px solid #f4f4f4;
@@ -172,7 +163,6 @@ window,
     color: #ff0000;
 }
 
-/* buttons bez animacji */
 button {
     transition: none;
 }
@@ -185,12 +175,10 @@ button:active {
     opacity: 1;
 }
 
-/* labels */
 label {
     padding: 0 2px;
 }
 
-/* opcjonalny tytuł aktywnego okna */
 .window-title {
     background: #c0c0c0;
     border-top: 1px solid #555555;

@@ -1,0 +1,205 @@
+* {
+    all: unset;
+    font-family: "Inter", "JetBrainsMono Nerd Font", "Noto Sans", sans-serif;
+    font-size: 13px;
+    color: #cdd6f4;
+}
+
+window,
+.sgs-window {
+    background: transparent;
+}
+
+.bar {
+    background: rgba(17, 17, 27, 0.96);
+    border-bottom: 1px solid rgba(49, 50, 68, 0.95);
+}
+
+.bar-left,
+.bar-center,
+.bar-right {
+    background: transparent;
+}
+
+.module,
+.workspace-module,
+.status-module {
+    background: #1e1e2e;
+    border: 1px solid #313244;
+    border-radius: 10px;
+    padding: 3px 6px;
+    margin: 4px 3px;
+}
+
+.module:hover,
+.workspace-module:hover,
+.status-module:hover {
+    background: #313244;
+    border-color: #45475a;
+}
+
+.launcher {
+    background: #313244;
+    border: 1px solid #45475a;
+    border-radius: 10px;
+    padding: 4px 12px;
+    margin: 4px 3px;
+    color: #cba6f7;
+    font-weight: 800;
+    min-width: 42px;
+}
+
+.launcher:hover {
+    background: #45475a;
+    color: #f5c2e7;
+}
+
+.workspaces {
+    background: transparent;
+    margin: 0;
+}
+
+.workspace,
+.workspace-button {
+    background: transparent;
+    border-radius: 8px;
+    padding: 3px 9px;
+    margin: 0 1px;
+    color: #a6adc8;
+    font-weight: 700;
+    min-width: 20px;
+    min-height: 20px;
+}
+
+.workspace:hover,
+.workspace-button:hover {
+    background: #313244;
+    color: #cdd6f4;
+}
+
+.workspace-active {
+    background: #cba6f7;
+    color: #11111b;
+    font-weight: 900;
+}
+
+.workspace-urgent {
+    background: #f38ba8;
+    color: #11111b;
+    font-weight: 900;
+}
+
+.clock {
+    background: #1e1e2e;
+    border: 1px solid #313244;
+    border-radius: 10px;
+    padding: 4px 14px;
+    margin: 4px 3px;
+    color: #89b4fa;
+    font-weight: 800;
+    min-width: 64px;
+}
+
+.clock:hover {
+    background: #313244;
+    border-color: #45475a;
+}
+
+.volume,
+.battery,
+.cpu,
+.memory,
+.network {
+    padding: 4px 8px;
+    font-weight: 800;
+}
+
+.volume {
+    color: #89b4fa;
+}
+
+.battery {
+    color: #a6e3a1;
+}
+
+.cpu {
+    color: #fab387;
+}
+
+.memory {
+    color: #f9e2af;
+}
+
+.network {
+    color: #94e2d5;
+}
+
+.power {
+    background: #313244;
+    border: 1px solid #45475a;
+    border-radius: 10px;
+    padding: 4px 10px;
+    margin: 4px 3px;
+    color: #f38ba8;
+    font-weight: 900;
+    min-width: 28px;
+}
+
+.power:hover {
+    background: #f38ba8;
+    border-color: #f38ba8;
+    color: #11111b;
+}
+
+button {
+    transition: 120ms ease;
+}
+
+button:hover {
+    opacity: 1;
+}
+
+button:active {
+    opacity: 0.82;
+}
+
+label {
+    padding: 0 2px;
+}
+
+.window-title {
+    background: #1e1e2e;
+    border: 1px solid #313244;
+    border-radius: 10px;
+    padding: 4px 14px;
+    margin: 4px 3px;
+    color: #cdd6f4;
+    font-weight: 700;
+    min-width: 260px;
+}
+
+.window-title:hover {
+    background: #313244;
+    border-color: #45475a;
+}
+
+.popup,
+.control-center,
+.notification,
+.osd {
+    background: #1e1e2e;
+    border: 1px solid #313244;
+    border-radius: 14px;
+    color: #cdd6f4;
+}
+
+.popup-title,
+.notification-title,
+.osd-label {
+    color: #cba6f7;
+    font-weight: 900;
+}
+
+.notification-body {
+    color: #bac2de;
+}

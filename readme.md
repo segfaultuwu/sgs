@@ -10,7 +10,12 @@
 ## Build:
 - `cargo build --bin sgs`
 
-## Example config:
-![bar.png](assets/bar.png)
-### Install:
-- `chmod +x sgs/install.sh && ./sgs/install.sh`
+## Example configs:
+### Retro:
+![bar.png](assets/bar-retro.png)
+#### Install:
+- `chmod +x sgs/retro/install.sh && ./sgs/retro/install.sh`
+### Modern:
+![bar.png](assets/bar-modern.png)
+#### Install:
+- `chmod +x sgs/modern/install.sh && ./sgs/modern/install.sh`
