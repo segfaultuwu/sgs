@@ -1,0 +1,15 @@
+use std::path::Path;
+
+pub fn load_css(path: impl AsRef<Path>) {
+    let provider = gtk::CssProvider::new();
+
+    provider.load_from_path(path.as_ref());
+
+    if let Some(display) = gtk::gdk::Display::default() {
+        gtk::style_context_add_provider_for_display(
+            &display,
+            &provider,
+            gtk::STYLE_PROVIDER_PRIORITY_APPLICATION,
+        );
+    }
+}

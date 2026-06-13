@@ -1,0 +1,18 @@
+[package]
+name = "sgs"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+gtk = { package = "gtk4", version = "0.9" }
+glib = "0.20"
+gio = "0.20"
+gtk4-layer-shell = "0.4"
+
+mlua = { version = "0.10", features = ["lua54", "vendored"] }
+
+anyhow = "1"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+chrono = "0.4"
+dirs = "5"

@@ -1,0 +1,206 @@
+* {
+    all: unset;
+    font-family:
+        "Terminus", "PxPlus IBM VGA8", "JetBrainsMono Nerd Font", monospace;
+    font-size: 12px;
+    color: #111111;
+}
+
+window,
+.sgs-window {
+    background: transparent;
+}
+
+/* cały pasek */
+.bar {
+    background: #b8b8b8;
+    border-top: 1px solid #eeeeee;
+    border-bottom: 1px solid #222222;
+}
+
+/* layout */
+.bar-left,
+.bar-center,
+.bar-right {
+    background: transparent;
+}
+
+/* klasyczny moduł */
+.module,
+.workspace-module,
+.status-module {
+    background: #c0c0c0;
+    border-top: 1px solid #f4f4f4;
+    border-left: 1px solid #f4f4f4;
+    border-right: 1px solid #555555;
+    border-bottom: 1px solid #555555;
+    border-radius: 0;
+    padding: 1px 4px;
+    margin: 2px 2px;
+}
+
+/* efekt wciśnięcia */
+.module:active,
+.workspace-button:active,
+.launcher:active,
+.power:active {
+    border-top: 1px solid #555555;
+    border-left: 1px solid #555555;
+    border-right: 1px solid #f4f4f4;
+    border-bottom: 1px solid #f4f4f4;
+}
+
+/* launcher */
+.launcher {
+    background: #c0c0c0;
+    border-top: 1px solid #f4f4f4;
+    border-left: 1px solid #f4f4f4;
+    border-right: 1px solid #555555;
+    border-bottom: 1px solid #555555;
+    border-radius: 0;
+    padding: 1px 10px;
+    margin: 2px 2px;
+    color: #111111;
+    font-weight: 700;
+    min-width: 36px;
+}
+
+.launcher:hover {
+    background: #d0d0d0;
+}
+
+/* workspaces */
+.workspaces {
+    background: transparent;
+    margin: 0;
+}
+
+.workspace,
+.workspace-button {
+    background: #c0c0c0;
+    border-top: 1px solid #f4f4f4;
+    border-left: 1px solid #f4f4f4;
+    border-right: 1px solid #555555;
+    border-bottom: 1px solid #555555;
+    border-radius: 0;
+    padding: 1px 9px;
+    margin: 0 1px;
+    color: #111111;
+    font-weight: 700;
+    min-width: 18px;
+    min-height: 17px;
+}
+
+.workspace:hover,
+.workspace-button:hover {
+    background: #d0d0d0;
+}
+
+.workspace-active {
+    background: #a8a8a8;
+    border-top: 1px solid #555555;
+    border-left: 1px solid #555555;
+    border-right: 1px solid #f4f4f4;
+    border-bottom: 1px solid #f4f4f4;
+    color: #000000;
+    font-weight: 900;
+}
+
+/* center title / clock */
+.clock {
+    background: #c0c0c0;
+    border-top: 1px solid #555555;
+    border-left: 1px solid #555555;
+    border-right: 1px solid #f4f4f4;
+    border-bottom: 1px solid #f4f4f4;
+    border-radius: 0;
+    padding: 1px 12px;
+    margin: 2px 2px;
+    color: #111111;
+    font-weight: 900;
+    min-width: 68px;
+}
+
+/* status */
+.volume,
+.battery,
+.cpu,
+.memory,
+.network {
+    color: #111111;
+    padding: 1px 7px;
+    font-weight: 800;
+}
+
+.volume {
+    color: #111111;
+}
+
+.battery {
+    color: #111111;
+}
+
+.cpu {
+    color: #111111;
+}
+
+.memory {
+    color: #111111;
+}
+
+.network {
+    color: #111111;
+}
+
+/* power/shutdown */
+.power {
+    background: #c0c0c0;
+    border-top: 1px solid #f4f4f4;
+    border-left: 1px solid #f4f4f4;
+    border-right: 1px solid #555555;
+    border-bottom: 1px solid #555555;
+    border-radius: 0;
+    padding: 1px 8px;
+    margin: 2px 2px;
+    color: #cc0000;
+    font-weight: 900;
+    min-width: 48px;
+}
+
+.power:hover {
+    background: #d0d0d0;
+    color: #ff0000;
+}
+
+/* buttons bez animacji */
+button {
+    transition: none;
+}
+
+button:hover {
+    opacity: 1;
+}
+
+button:active {
+    opacity: 1;
+}
+
+/* labels */
+label {
+    padding: 0 2px;
+}
+
+/* opcjonalny tytuł aktywnego okna */
+.window-title {
+    background: #c0c0c0;
+    border-top: 1px solid #555555;
+    border-left: 1px solid #555555;
+    border-right: 1px solid #f4f4f4;
+    border-bottom: 1px solid #f4f4f4;
+    border-radius: 0;
+    padding: 1px 12px;
+    margin: 2px 2px;
+    color: #111111;
+    font-weight: 800;
+    min-width: 260px;
+}
