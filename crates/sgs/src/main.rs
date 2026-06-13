@@ -145,13 +145,21 @@ fn drain_ipc_events(
     }
 }
 
+fn restart_self() -> ! {
+    let exe = std::env::current_exe().expect("failed to get current exe");
+
+    let args: Vec<String> = std::env::args().skip(1).collect();
+
+    let err = std::os::unix::process::CommandExt::exec(std::process::Command::new(exe).args(args));
+
+    panic!("failed to exec self: {err}");
+}
+
 fn handle_ipc_event(event: IpcEvent, app: &gtk::Application, runtime: &Rc<RefCell<Runtime>>) {
     match event {
         IpcEvent::Reload => {
             eprintln!("[sgs] reload requested");
-
-            // TODO: Hot reload
-            app.quit();
+            restart_self();
         }
 
         IpcEvent::Quit => {
