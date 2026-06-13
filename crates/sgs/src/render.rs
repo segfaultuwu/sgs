@@ -8,6 +8,25 @@ pub fn render_widget(node: &WidgetNode) -> gtk::Widget {
         WidgetNode::Label(label) => {
             let w = gtk::Label::new(Some(&label.text));
             apply_classes(&w, &label.class);
+
+            if has_class(&label.class, "volume") {
+                update_volume_label(&w);
+
+                let label = w.clone();
+                glib::timeout_add_local(std::time::Duration::from_millis(750), move || {
+                    update_volume_label(&label);
+                    glib::ControlFlow::Continue
+                });
+            } else if has_class(&label.class, "battery") {
+                update_battery_label(&w);
+
+                let label = w.clone();
+                glib::timeout_add_seconds_local(10, move || {
+                    update_battery_label(&label);
+                    glib::ControlFlow::Continue
+                });
+            }
+
             w.upcast()
         }
 
@@ -202,4 +221,97 @@ fn run_action(action: &Action) {
 
         Action::HyprDispatch(dispatch) => hyprland::dispatch(dispatch),
     }
+}
+
+// Helpers
+
+fn has_class(classes: &[String], wanted: &str) -> bool {
+    classes.iter().any(|class| class == wanted)
+}
+
+fn update_volume_label(label: &gtk::Label) {
+    let volume = get_volume_percent().unwrap_or_else(|| "??".to_string());
+    label.set_label(&format!("VOL: {volume}"));
+}
+
+fn update_battery_label(label: &gtk::Label) {
+    let battery = get_battery_percent().unwrap_or_else(|| "??".to_string());
+    label.set_label(&format!("BAT: {battery}"));
+}
+
+fn get_volume_percent() -> Option<String> {
+    let output = std::process::Command::new("sh")
+        .arg("-c")
+        .arg(
+            r#"
+            if command -v wpctl >/dev/null 2>&1; then
+              wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{
+                vol = int($2 * 100)
+                if ($0 ~ /MUTED/) print "MUTE"
+                else print vol "%"
+              }'
+            elif command -v pamixer >/dev/null 2>&1; then
+              if pamixer --get-mute | grep -q true; then
+                echo "MUTE"
+              else
+                echo "$(pamixer --get-volume)%"
+              fi
+            else
+              echo "N/A"
+            fi
+            "#,
+        )
+        .output()
+        .ok()?;
+
+    if !output.status.success() {
+        return None;
+    }
+
+    let text = String::from_utf8_lossy(&output.stdout).trim().to_string();
+
+    if text.is_empty() { None } else { Some(text) }
+}
+
+fn get_battery_percent() -> Option<String> {
+    let battery_path = find_battery_path()?;
+
+    let capacity_path = battery_path.join("capacity");
+    let status_path = battery_path.join("status");
+
+    let capacity = std::fs::read_to_string(capacity_path).ok()?;
+    let capacity = capacity.trim();
+
+    let status = std::fs::read_to_string(status_path)
+        .unwrap_or_default()
+        .trim()
+        .to_string();
+
+    let icon = match status.as_str() {
+        "Charging" => "+",
+        "Discharging" => "-",
+        "Full" => "=",
+        _ => "",
+    };
+
+    Some(format!("{capacity}%{icon}"))
+}
+
+fn find_battery_path() -> Option<std::path::PathBuf> {
+    let entries = std::fs::read_dir("/sys/class/power_supply").ok()?;
+
+    for entry in entries.flatten() {
+        let path = entry.path();
+        let type_path = path.join("type");
+
+        let Ok(kind) = std::fs::read_to_string(type_path) else {
+            continue;
+        };
+
+        if kind.trim() == "Battery" {
+            return Some(path);
+        }
+    }
+
+    None
 }
