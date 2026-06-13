@@ -12,6 +12,7 @@ mod hyprland;
 mod ipc;
 mod lua;
 mod render;
+mod system;
 mod widget;
 
 use crate::ipc::{IpcEvent, IpcServer};

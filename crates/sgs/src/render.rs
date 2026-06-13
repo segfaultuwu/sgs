@@ -9,27 +9,8 @@ pub fn render_widget(node: &WidgetNode) -> gtk::Widget {
             let w = gtk::Label::new(Some(&label.text));
             apply_classes(&w, &label.class);
 
-            if has_class(&label.class, "volume") {
-                update_volume_label(&w);
-
-                let label = w.clone();
-                glib::timeout_add_local(std::time::Duration::from_millis(750), move || {
-                    update_volume_label(&label);
-                    glib::ControlFlow::Continue
-                });
-            } else if has_class(&label.class, "battery") {
-                update_battery_label(&w);
-
-                let label = w.clone();
-                glib::timeout_add_seconds_local(10, move || {
-                    update_battery_label(&label);
-                    glib::ControlFlow::Continue
-                });
-            }
-
             w.upcast()
         }
-
         WidgetNode::Button(button) => {
             let w = gtk::Button::with_label(&button.text);
             apply_classes(&w, &button.class);
@@ -42,7 +23,6 @@ pub fn render_widget(node: &WidgetNode) -> gtk::Widget {
 
             w.upcast()
         }
-
         WidgetNode::Box(b) => {
             let orientation = match b.orientation {
                 Orientation::Horizontal => gtk::Orientation::Horizontal,
@@ -59,7 +39,32 @@ pub fn render_widget(node: &WidgetNode) -> gtk::Widget {
 
             w.upcast()
         }
+        WidgetNode::Battery(bt) => {
+            let w = gtk::Label::new(Some(""));
+            apply_classes(&w, &bt.class);
+            update_battery_label(&w);
 
+            let label = w.clone();
+            glib::timeout_add_seconds_local(10, move || {
+                update_battery_label(&label);
+                glib::ControlFlow::Continue
+            });
+            w.upcast()
+        }
+        WidgetNode::Cpu(cpu) => {
+            let w = gtk::Label::new(Some(""));
+            let state = std::rc::Rc::new(std::cell::RefCell::new(None));
+            apply_classes(&w, &cpu.class);
+            update_cpu_label(&w, &state);
+
+            let label = w.clone();
+            glib::timeout_add_seconds_local(1, move || {
+                update_cpu_label(&label, &state);
+                glib::ControlFlow::Continue
+            });
+
+            w.upcast()
+        }
         WidgetNode::CenterBox(c) => {
             let w = gtk::CenterBox::new();
             apply_classes(&w, &c.class);
@@ -81,7 +86,6 @@ pub fn render_widget(node: &WidgetNode) -> gtk::Widget {
 
             w.upcast()
         }
-
         WidgetNode::Clock(clock) => {
             let w = gtk::Label::new(Some(""));
             apply_classes(&w, &clock.class);
@@ -98,7 +102,6 @@ pub fn render_widget(node: &WidgetNode) -> gtk::Widget {
 
             w.upcast()
         }
-
         WidgetNode::Workspaces(workspaces) => {
             let w = gtk::Box::new(gtk::Orientation::Horizontal, 4);
             apply_classes(&w, &workspaces.class);
@@ -144,7 +147,88 @@ pub fn render_widget(node: &WidgetNode) -> gtk::Widget {
 
             w.upcast()
         }
+        WidgetNode::Volume(v) => {
+            let w = gtk::Label::new(None);
+            update_volume_label(&w);
+            apply_classes(&w, &v.class);
+
+            let label = w.clone();
+            glib::timeout_add_local(std::time::Duration::from_millis(750), move || {
+                update_volume_label(&label);
+                glib::ControlFlow::Continue
+            });
+            w.upcast()
+        }
+        WidgetNode::Memory(m) => {
+            let w = gtk::Label::new(None);
+            update_memory_label(&w);
+            apply_classes(&w, &m.class);
+            let label = w.clone();
+            glib::timeout_add_local(std::time::Duration::from_millis(750), move || {
+                update_memory_label(&label);
+                glib::ControlFlow::Continue
+            });
+            w.upcast()
+        }
+        WidgetNode::ActiveWindow(a) => {
+            let w = gtk::Label::new(None);
+            update_active_window_label(&w);
+            apply_classes(&w, &a.class);
+            let label = w.clone();
+            glib::timeout_add_local(std::time::Duration::from_millis(750), move || {
+                update_active_window_label(&label);
+                glib::ControlFlow::Continue
+            });
+            w.upcast()
+        }
     }
+}
+
+fn update_active_window_label(label: &gtk::Label) {
+    match crate::system::read_active_window() {
+        Ok(w) => {
+            label.set_label(&w);
+        }
+        Err(_) => {
+            label.set_label("??");
+        }
+    }
+}
+
+fn update_memory_label(label: &gtk::Label) {
+    match crate::system::read_memory_info() {
+        Ok(mem) => {
+            let used = crate::system::format_kib(mem.used_kib);
+            let total = crate::system::format_kib(mem.total_kib);
+
+            label.set_label(&format!("RAM: {used}/{total}"));
+        }
+
+        Err(_) => {
+            label.set_label("RAM: ??");
+        }
+    }
+}
+
+fn update_cpu_label(
+    label: &gtk::Label,
+    state: &std::rc::Rc<std::cell::RefCell<Option<crate::system::CpuSnapshot>>>,
+) {
+    let Ok(next) = crate::system::read_cpu_snapshot() else {
+        label.set_label("CPU: ??");
+        return;
+    };
+
+    let mut prev = state.borrow_mut();
+
+    if let Some(old) = *prev {
+        let usage = crate::system::cpu_usage_percent(old, next);
+        label.set_label(&format!("CPU: {:.0}%", usage));
+    } else {
+        label.set_label("CPU: --");
+    }
+
+    *prev = Some(next);
 }
 
 fn update_clock_label(label: &gtk::Label, format: &str) {

@@ -33,7 +33,12 @@ pub enum WidgetNode {
     Clock(ClockNode),
     Box(BoxNode),
     CenterBox(CenterBoxNode),
+    Volume(VolumeNode),
+    Battery(BatteryNode),
+    Cpu(CpuNode),
+    Memory(MemoryNode),
     Workspaces(WorkspacesNode),
+    ActiveWindow(ActiveWindowNode),
 }
 
 #[derive(Debug, Clone)]
@@ -68,6 +73,31 @@ pub struct ButtonNode {
 pub struct ClockNode {
     pub class: Vec<String>,
     pub format: String,
+}
+
+#[derive(Debug, Clone)]
+pub struct VolumeNode {
+    pub class: Vec<String>,
+}
+
+#[derive(Debug, Clone)]
+pub struct ActiveWindowNode {
+    pub class: Vec<String>,
+}
+
+#[derive(Debug, Clone)]
+pub struct BatteryNode {
+    pub class: Vec<String>,
+}
+
+#[derive(Debug, Clone)]
+pub struct CpuNode {
+    pub class: Vec<String>,
+}
+
+#[derive(Debug, Clone)]
+pub struct MemoryNode {
+    pub class: Vec<String>,
 }
 
 #[derive(Debug, Clone)]

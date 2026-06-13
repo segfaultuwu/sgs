@@ -11,8 +11,8 @@ window,
 }
 
 .bar {
-    background: rgba(17, 17, 27, 0.96);
-    border-bottom: 1px solid rgba(49, 50, 68, 0.95);
+    background: rgba(17, 17, 27, 0.75);
+    border-bottom: 1px solid rgba(49, 50, 68, 0.9);
 }
 
 .bar-left,
@@ -26,7 +26,7 @@ window,
 .status-module {
     background: #1e1e2e;
     border: 1px solid #313244;
-    border-radius: 10px;
+    border-radius: 8px;
     padding: 3px 6px;
     margin: 4px 3px;
 }
@@ -34,24 +34,25 @@ window,
 .module:hover,
 .workspace-module:hover,
 .status-module:hover {
-    background: #313244;
+    background: #242438;
     border-color: #45475a;
 }
 
 .launcher {
-    background: #313244;
-    border: 1px solid #45475a;
-    border-radius: 10px;
+    background: #8839ef;
+    border: 1px solid #cba6f7;
+    border-radius: 8px;
     padding: 4px 12px;
     margin: 4px 3px;
-    color: #cba6f7;
-    font-weight: 800;
+    color: #11111b;
+    font-weight: 900;
     min-width: 42px;
 }
 
 .launcher:hover {
-    background: #45475a;
-    color: #f5c2e7;
+    background: #f5c2e7;
+    border-color: #f5c2e7;
+    color: #11111b;
 }
 
 .workspaces {
@@ -62,11 +63,11 @@ window,
 .workspace,
 .workspace-button {
     background: transparent;
-    border-radius: 8px;
+    border-radius: 9px;
     padding: 3px 9px;
     margin: 0 1px;
     color: #a6adc8;
-    font-weight: 700;
+    font-weight: 800;
     min-width: 20px;
     min-height: 20px;
 }
@@ -78,7 +79,7 @@ window,
 }
 
 .workspace-active {
-    background: #cba6f7;
+    background: #89b4fa;
     color: #11111b;
     font-weight: 900;
 }
@@ -92,17 +93,21 @@ window,
 .clock {
     background: #1e1e2e;
     border: 1px solid #313244;
-    border-radius: 10px;
-    padding: 4px 14px;
+    border-radius: 8px;
+    padding: 4px 15px;
     margin: 4px 3px;
-    color: #89b4fa;
-    font-weight: 800;
-    min-width: 64px;
+    color: #cba6f7;
+    font-weight: 900;
+    min-width: 58px;
 }
 
 .clock:hover {
-    background: #313244;
+    background: #242438;
     border-color: #45475a;
+}
+
+.status-module {
+    padding: 3px 8px;
 }
 
 .volume,
@@ -110,8 +115,16 @@ window,
 .cpu,
 .memory,
 .network {
-    padding: 4px 8px;
+    padding: 4px 7px;
     font-weight: 800;
+}
+
+.memory {
+    color: #f9e2af;
+}
+
+.cpu {
+    color: #fab387;
 }
 
 .volume {
@@ -122,27 +135,19 @@ window,
     color: #a6e3a1;
 }
 
-.cpu {
-    color: #fab387;
-}
-
-.memory {
-    color: #f9e2af;
-}
-
 .network {
     color: #94e2d5;
 }
 
 .power {
-    background: #313244;
-    border: 1px solid #45475a;
-    border-radius: 10px;
-    padding: 4px 10px;
+    background: #1e1e2e;
+    border: 1px solid #313244;
+    border-radius: 8px;
+    padding: 4px 11px;
     margin: 4px 3px;
     color: #f38ba8;
     font-weight: 900;
-    min-width: 28px;
+    min-width: 24px;
 }
 
 .power:hover {
@@ -160,7 +165,7 @@ button:hover {
 }
 
 button:active {
-    opacity: 0.82;
+    opacity: 0.78;
 }
 
 label {
@@ -170,17 +175,18 @@ label {
 .window-title {
     background: #1e1e2e;
     border: 1px solid #313244;
-    border-radius: 10px;
+    border-radius: 8px;
     padding: 4px 14px;
     margin: 4px 3px;
-    color: #cdd6f4;
+    color: #bac2de;
     font-weight: 700;
     min-width: 260px;
 }
 
 .window-title:hover {
-    background: #313244;
+    background: #242438;
     border-color: #45475a;
+    color: #cdd6f4;
 }
 
 .popup,
@@ -189,7 +195,7 @@ label {
 .osd {
     background: #1e1e2e;
     border: 1px solid #313244;
-    border-radius: 14px;
+    border-radius: 16px;
     color: #cdd6f4;
 }
 

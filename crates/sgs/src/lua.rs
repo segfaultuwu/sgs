@@ -68,6 +68,43 @@ fn register_sgs_api(lua: &Lua, state: Rc<RefCell<LuaRuntimeState>>) -> mlua::Res
     })?;
     sgs.set("clock", clock)?;
 
+    let battery = lua.create_function(|_, opts: Table| {
+        let class = get_class(&opts);
+
+        Ok(LuaWidget(WidgetNode::Battery(BatteryNode { class })))
+    })?;
+    sgs.set("battery", battery)?;
+
+    let cpu = lua.create_function(|_, opts: Table| {
+        let class = get_class(&opts);
+
+        Ok(LuaWidget(WidgetNode::Cpu(CpuNode { class })))
+    })?;
+    sgs.set("cpu", cpu)?;
+
+    let memory = lua.create_function(|_, opts: Table| {
+        let class = get_class(&opts);
+
+        Ok(LuaWidget(WidgetNode::Memory(MemoryNode { class })))
+    })?;
+    sgs.set("memory", memory)?;
+
+    let volume = lua.create_function(|_, opts: Table| {
+        let class = get_class(&opts);
+
+        Ok(LuaWidget(WidgetNode::Volume(VolumeNode { class })))
+    })?;
+    sgs.set("volume", volume)?;
+
+    let active_window = lua.create_function(|_, opts: Table| {
+        let class = get_class(&opts);
+
+        Ok(LuaWidget(WidgetNode::ActiveWindow(ActiveWindowNode {
+            class,
+        })))
+    })?;
+    sgs.set("active_window", active_window)?;
+
     let workspaces = lua.create_function(|_, opts: Table| {
         let class = get_class(&opts);
         let button_class = get_string_list(&opts, "button_class");

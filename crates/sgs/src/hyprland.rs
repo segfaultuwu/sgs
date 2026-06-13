@@ -1,4 +1,5 @@
 use anyhow::{Context, Result};
+use gtk::AccessibleRole::Option;
 use serde::Deserialize;
 use std::io::{BufRead, BufReader};
 use std::os::unix::net::UnixStream;
@@ -23,6 +24,14 @@ pub struct HyprWorkspace {
 pub struct HyprActiveWorkspace {
     pub id: i32,
     pub name: String,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct ActiveWindow {
+    pub address: String,
+    pub class: String,
+    pub title: String,
+    pub workspace: HyprActiveWorkspace,
 }
 
 #[derive(Debug, Clone)]
@@ -127,6 +136,31 @@ pub fn start_event_listener() -> Result<mpsc::Receiver<HyprlandEvent>> {
     });
 
     Ok(rx)
+}
+
+pub fn get_active_window_title() -> Result<String> {
+    let output = Command::new("hyprctl")
+        .args(["activewindow", "-j"])
+        .output()
+        .context("cannot run hyprctl activewindow -j")?;
+
+    if !output.status.success() {
+        anyhow::bail!(
+            "hyprctl activewindow failed: {}",
+            String::from_utf8_lossy(&output.stderr)
+        );
+    }
+
+    let active_window: ActiveWindow = serde_json::from_slice(&output.stdout)
+        .context("failed to parse hyprctl activewindow json")?;
+
+    let title = active_window.title.trim();
+
+    if title.is_empty() {
+        Ok("Desktop".to_string())
+    } else {
+        Ok(title.to_string())
+    }
 }
 
 pub fn event_should_refresh_ui(event: &HyprlandEvent) -> bool {

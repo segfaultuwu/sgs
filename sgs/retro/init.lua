@@ -43,13 +43,11 @@ sgs.window("bar", {
                 sgs.box({
                     class = { "module", "status-module" },
                     children = {
-                        sgs.label({
-                            text = "VOL",
+                        sgs.volume({
                             class = { "volume" },
                         }),
 
-                        sgs.label({
-                            text = "BAT",
+                        sgs.battery({
                             class = { "battery" },
                         }),
                     },

@@ -14,6 +14,7 @@ sgs.window("bar", {
                     command = "rofi -show drun",
                 }),
 
+
                 sgs.box({
                     class = { "module", "workspace-module" },
                     children = {
@@ -23,6 +24,9 @@ sgs.window("bar", {
                             button_class = { "workspace-button" },
                         }),
                     },
+                }),
+                sgs.active_window({
+                    class = { "active-window" },
                 }),
             },
         }),
@@ -43,13 +47,19 @@ sgs.window("bar", {
                 sgs.box({
                     class = { "module", "status-module" },
                     children = {
-                        sgs.label({
-                            text = "VOL",
+                        sgs.memory({
+                            class = { "memory" },
+                        }),
+
+                        sgs.cpu({
+                            class = { "cpu" },
+                        }),
+
+                        sgs.volume({
                             class = { "volume" },
                         }),
 
-                        sgs.label({
-                            text = "BAT",
+                        sgs.battery({
                             class = { "battery" },
                         }),
                     },
