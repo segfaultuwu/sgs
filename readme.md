@@ -1,5 +1,5 @@
 # Segfault's Gtk Shell
--- 
+---
 ## A customizable Gtk shell for Hyprland (more compositors soon)
 
 ## Dependencies:
